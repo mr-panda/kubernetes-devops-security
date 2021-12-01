@@ -34,7 +34,7 @@ pipeline {
      stage('SonarQube - SAST') {
           steps {
             withSonarQubeEnv('SonarQube') {
-              sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://devsecops-panda-demo.eastus.cloudapp.azure.com:9000 -Dsonar.login=1ae7494ee587416863dbdf12957330ba8e7f13d4"
+              sh "mvn sonar:sonar -Dsonar.projectKey=asasasa -Dsonar.host.url=http://devsecops-panda-demo.eastus.cloudapp.azure.com:9000 -Dsonar.login=0d182c0a2ab98d776800311fa52f02d671007485"
             }
             timeout(time: 2, unit: 'MINUTES') {
               script {
