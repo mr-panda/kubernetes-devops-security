@@ -55,8 +55,6 @@ pipeline {
           sh "kubectl apply -f k8s_deployment_service.yaml"
         }
       }
-    }
-
 post {
     always {
       junit 'target/surefire-reports/*.xml'
