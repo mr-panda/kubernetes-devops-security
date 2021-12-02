@@ -6,7 +6,7 @@ pipeline {
     serviceName = "devsecops-svc"
     imageName = "mrpanda910/numeric-app:${GIT_COMMIT}"
     applicationURL = "http://devsecops-panda-demo.eastus.cloudapp.azure.com"
-    applicationURI = "increment/99"
+    applicationURI = "/increment/99"
   }
 
   stages {
