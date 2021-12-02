@@ -1,15 +1,12 @@
-@Library('slack') _
-
 pipeline {
   agent any
-
   environment {
     deploymentName = "devsecops"
     containerName = "devsecops-container"
     serviceName = "devsecops-svc"
     imageName = "mrpanda910/numeric-app:${GIT_COMMIT}"
     applicationURL = "http://devsecops-panda-demo.eastus.cloudapp.azure.com"
-    applicationURI = "increment/99"
+    applicationURI = "/increment/99"
   }
 
   stages {
@@ -124,26 +121,23 @@ stage('OWASP ZAP - DAST') {
         }
       }
     }
-stage('Prompte to PROD?') {
-  steps {
-    timeout(time: 2, unit: 'DAYS') {
-      input 'Do you want to Approve the Deployment to Production Environment/Namespace?'
+
+  stage('Prompte to PROD?') {
+    steps {
+      timeout(time: 2, unit: 'DAYS') {
+        input 'Do you want to Approve the Deployment to Production Environment/Namespace?'
+      }
     }
   }
-  }
-  }
 
+  }
   post {
     always {
-      // junit 'target/surefire-reports/*.xml'
-      // jacoco execPattern: 'target/jacoco.exec'
-      // pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
-      // dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
-      // publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'owasp-zap-report', reportFiles: 'zap_report.html', reportName: 'OWASP ZAP HTML Report', reportTitles: 'OWASP ZAP HTML Report'])
-
-
-
-      // Use sendNotifications.groovy from shared library and provide current build result as parameter
+      junit 'target/surefire-reports/*.xml'
+      jacoco execPattern: 'target/jacoco.exec'
+      pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+      dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+      publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'owasp-zap-report', reportFiles: 'zap_report.html', reportName: 'OWASP ZAP HTML Report', reportTitles: 'OWASP ZAP HTML Report'])
       endNotification currentBuild.result
     }
 
