@@ -32,7 +32,7 @@ pipeline {
 
 
       // Use sendNotifications.groovy from shared library and provide current build result as parameter
-      sendNotification currentBuild.result
+      endNotification currentBuild.result
     }
 
     // success {
